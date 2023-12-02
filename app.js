@@ -81,15 +81,15 @@ const editTodo = (li) => {
 };
 
 const deleteAll = () => {
-  // restoring array
+  // restoring array initiallized
   const restoreArray = [];
-
+// deleting all existing todos
   while (todoList.firstChild) {
     restoreArray.unshift(todoList.lastChild);
     todoList.removeChild(todoList.lastChild);
   }
 
-  console.log(restoreArray);
+  // console.log(restoreArray);
   const deleteButton = document.getElementById("deleteButton");
   deleteButton.hidden = true;
 
@@ -108,14 +108,14 @@ const deleteAll = () => {
       for (let i = 0; i < restoreArray.length; i++) {
         debugger;
         todoList.appendChild(restoreArray[i]);
-        console.log(restoreArray[i]);
+        // console.log(restoreArray[i]);
         // restoreArray.shift();
       }
 
-      // empty the array again
+      // empty the restore array again
 
       restoreArray.length = 0;
-      console.log(restoreArray);
+      // console.log(restoreArray);
       restoreButton.hidden = true;
       deleteButton.hidden = false;
     },
@@ -123,4 +123,4 @@ const deleteAll = () => {
   );
 };
 
-// restore function
+
