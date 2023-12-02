@@ -106,7 +106,7 @@ const deleteAll = () => {
       // console.log(restoreArray.length);
       // const restoreButton = document.getElementById("restore-button");
       for (let i = 0; i < restoreArray.length; i++) {
-        debugger;
+        // debugger;
         todoList.appendChild(restoreArray[i]);
         // console.log(restoreArray[i]);
         // restoreArray.shift();
