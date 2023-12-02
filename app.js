@@ -49,6 +49,7 @@ const addTodo = () => {
 
 const deleteTodo = (li) => {
   li.remove();
+
   const deleteButton = document.getElementById("deleteButton");
   todoList.childNodes.length > 0
     ? (deleteButton.hidden = false)
@@ -58,7 +59,7 @@ const deleteTodo = (li) => {
 const editTodo = (li) => {
   // getting the value of todo and putting it in the input
   let todoValue = li.childNodes[0].nodeValue;
-  console.log("🚀 ~ file: app.js:62 ~ editTodo ~ todoValue:", todoValue);
+
   todoInput.value = todoValue;
   // enabling save button
   const saveButton = document.getElementById("saveButton");
@@ -76,28 +77,38 @@ const editTodo = (li) => {
 };
 
 const deleteAll = () => {
-  const restore = todoList.innerHTML;
-  // console.log("🚀 ~ file: app.js:80 ~ deleteAll ~ restore:", restore);
+  // restoring array
+  const restoreArray = [];
+
   while (todoList.firstChild) {
+    restoreArray.unshift(todoList.lastChild);
     todoList.removeChild(todoList.lastChild);
   }
+  // console.log(restoreArray);
   const deleteButton = document.getElementById("deleteButton");
   deleteButton.hidden = true;
-  // console.log(
-  //   "🚀 ~ file: app.js:87 ~ deleteAll ~ todoList.firstChild:",
-  //   todoList.firstChild
-  // );
-  if (!todoList.firstChild) {
-    const restoreButton = document.getElementById("restore-button");
-    restoreButton.hidden = false;
-    restoreButton.addEventListener("click", () => {
-      todoList.innerHTML = restore;
-      console.log(
-        "🚀 ~ file: app.js:95 ~ restoreButton.addEventListener ~ restore:",
-        restore
-      );
-      restoreButton.hidden = true;
-      deleteButton.hidden = false;
-    });
+
+  // enabling restore button
+
+  const restoreButton = document.getElementById("restore-button");
+  restoreButton.hidden = false;
+
+  // appending deleted todo's
+
+  restoreButton.addEventListener("click", () => {
+    restore(restoreArray);
+  });
+};
+
+// restore function
+
+const restore = (array) => {
+  const restoreButton = document.getElementById("restore-button");
+  for (let i = 0; i < array.length; i++) {
+    todoList.appendChild(array[i]);
+    array.unshift();
   }
+
+  restoreButton.hidden = true;
+  deleteButton.hidden = false;
 };
