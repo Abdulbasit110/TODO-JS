@@ -68,12 +68,16 @@ const editTodo = (li) => {
   todoButton = document.getElementById("todoButton");
   todoButton.style.display = "none";
 
-  saveButton.addEventListener("click", () => {
-    li.childNodes[0].nodeValue = todoInput.value;
-    saveButton.hidden = true;
-    todoButton.style.display = "inline-block";
-    todoInput.value = "";
-  });
+  saveButton.addEventListener(
+    "click",
+    () => {
+      li.childNodes[0].nodeValue = todoInput.value;
+      saveButton.hidden = true;
+      todoButton.style.display = "inline-block";
+      todoInput.value = "";
+    },
+    { once: true }
+  );
 };
 
 const deleteAll = () => {
@@ -84,7 +88,8 @@ const deleteAll = () => {
     restoreArray.unshift(todoList.lastChild);
     todoList.removeChild(todoList.lastChild);
   }
-  // console.log(restoreArray);
+
+  console.log(restoreArray);
   const deleteButton = document.getElementById("deleteButton");
   deleteButton.hidden = true;
 
@@ -95,20 +100,27 @@ const deleteAll = () => {
 
   // appending deleted todo's
 
-  restoreButton.addEventListener("click", () => {
-    restore(restoreArray);
-  });
+  restoreButton.addEventListener(
+    "click",
+    () => {
+      // console.log(restoreArray.length);
+      // const restoreButton = document.getElementById("restore-button");
+      for (let i = 0; i < restoreArray.length; i++) {
+        debugger;
+        todoList.appendChild(restoreArray[i]);
+        console.log(restoreArray[i]);
+        // restoreArray.shift();
+      }
+
+      // empty the array again
+
+      restoreArray.length = 0;
+      console.log(restoreArray);
+      restoreButton.hidden = true;
+      deleteButton.hidden = false;
+    },
+    { once: true }
+  );
 };
 
 // restore function
-
-const restore = (array) => {
-  const restoreButton = document.getElementById("restore-button");
-  for (let i = 0; i < array.length; i++) {
-    todoList.appendChild(array[i]);
-    array.unshift();
-  }
-
-  restoreButton.hidden = true;
-  deleteButton.hidden = false;
-};
